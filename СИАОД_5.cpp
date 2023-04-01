@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -39,7 +39,7 @@ List* z_1(List* l, int key, int choose)
         v->pNext = temp;
         temp = v;
         return temp;
-        
+
     }
     else
     {
@@ -71,8 +71,8 @@ List* z_2(List* l, int key)
         if (temp->data == key)
         {
             tr = temp;
-            tr->pNext = nullptr;
             temp = temp->pNext;
+            tr->pNext = nullptr;
         }
         else
         {
@@ -184,6 +184,18 @@ int main()
             {
                 cout << "Введите номер списка: ";
                 cin >> num;
+                while (1)
+                {
+                    if (num > numOfLists)
+                    {
+                        cout << "Введите номер списка заново: ";
+                        cin >> num;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
             cout << "Введите значение узла, подлежащего удалению: ";
             cin >> znach;
@@ -202,6 +214,18 @@ int main()
             {
                 cout << "Введите номер списка с искомым ключом: ";
                 cin >> num;
+                while (1)
+                {
+                    if (num > numOfLists)
+                    {
+                        cout << "Введите номер списка заново: ";
+                        cin >> num;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
             cout << "Введите искомое значение ключа: ";
             cin >> key;
