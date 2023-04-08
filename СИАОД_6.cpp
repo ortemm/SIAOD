@@ -1,7 +1,8 @@
 #include <iostream>
+#include <windows.h>
 using namespace std;
 
-int size;
+int razmer;
 
 struct List
 {
@@ -81,21 +82,21 @@ int z_1(List* inf, int n)
 }
 
 
-List* z_2(List* inf, int n)
+List* z_2(List* inf, int& n)
 {
     if (inf == nullptr) {
-    return nullptr;
+        return nullptr;
     }
     if (inf->number == 0) {
-        List* temp = inf->next;
-        delete inf;
-        size--;
-        return temp;
+        --n;
+        auto tr = inf;
+        inf = tr->next;
+        tr->next = nullptr;
+        delete tr;
+        return z_2(inf, n);
     }
-    for (int i = 0; i < n; i++)
-    {
-        inf->next = z_2(inf->next, n);
-    }
+
+    inf->next = z_2(inf->next, n);
     return inf;
 }
 
@@ -123,24 +124,24 @@ int main()
 
     cout << "Введите количество чисел: ";
     cin >> n;
-    size = n;
-    
-    for (int i = 0; i < size; i++)
-        {
-            int new_num;
-            cout << "Введите " << i + 1 << "-е число: ";
-            cin >> new_num;
-            list = add_to_lst(list, new_num);
-        }
-        print_lst(list);
+    razmer = n;
+
+    for (int i = 0; i < n; i++)
+    {
+        int new_num;
+        cout << "Введите " << i + 1 << "-е число: ";
+        cin >> new_num;
+        list = add_to_lst(list, new_num);
+    }
+    print_lst(list);
 
 
     while (1)
     {
         cout << "Выберите задание:\n"
-        << "0 - Выход из программы\n"
-        << "1 - Вычислить значение выражения типа Xn(Xn+Xn-1)...(Xn+...+X1)\n"
-        << "2 - Удалить из списка нули\n";
+            << "0 - Выход из программы\n"
+            << "1 - Вычислить значение выражения типа Xn(Xn+Xn-1)...(Xn+...+X1)\n"
+            << "2 - Удалить из списка нули\n";
         cin >> c;
 
         if (c == 0)
@@ -149,11 +150,11 @@ int main()
         }
         else if (c == 1)
         {
-            cout << z_1(list, size) << endl;
+            cout << z_1(list, razmer) << endl;
         }
         else if (c == 2)
         {
-            list = z_2(list, size);
+            list = z_2(list, razmer);
             print_lst(list);
         }
     }
