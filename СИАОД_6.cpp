@@ -68,7 +68,7 @@ int getSum(List* inf)
 }
 
 
-int z_1(List* inf, int n)
+int z_1_it(List* inf, int n)
 {
     auto temp = inf;
     int res = 1;
@@ -79,6 +79,16 @@ int z_1(List* inf, int n)
         temp = temp->next;
     }
     return res;
+}
+
+
+int z_1_rec(List* inf)
+{
+    if (inf->next)
+    {
+        return getSum(inf) * z_1_rec(inf->next);
+    }
+    return inf->number;
 }
 
 
@@ -140,8 +150,9 @@ int main()
     {
         cout << "Выберите задание:\n"
             << "0 - Выход из программы\n"
-            << "1 - Вычислить значение выражения типа Xn(Xn+Xn-1)...(Xn+...+X1)\n"
-            << "2 - Удалить из списка нули\n";
+            << "1 - Вычислить значение выражения типа Xn(Xn+Xn-1)...(Xn+...+X1) рекурсивное решение\n"
+            << "2 - Вычислить значение выражения типа Xn(Xn + Xn - 1)...(Xn + ... + X1) итеративное решение\n"
+            << "3 - Удалить из списка нули\n";
         cin >> c;
 
         if (c == 0)
@@ -150,9 +161,15 @@ int main()
         }
         else if (c == 1)
         {
-            cout << z_1(list, razmer) << endl;
+            cout << "Рекурсивное решение:\n";
+            cout << z_1_rec(list) << endl;
         }
         else if (c == 2)
+        {
+            cout << "Итеративное решение:\n";
+            cout << z_1_it(list, razmer) << endl;
+        }
+        else if (c == 3)
         {
             list = z_2(list, razmer);
             print_lst(list);
